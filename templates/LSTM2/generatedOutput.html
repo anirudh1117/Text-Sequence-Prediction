@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<section id="bc" class="mt-3">
+  <div class="container">
+    <ol class="breadcrumb" style="text-align: center;">
+      <strong>
+        <li class="breadcrumb-item active">{{ title }}</li>
+      </strong>
+      </nav>
+  </div>
+</section>
+
+
+<div class="container">
+  <div class="polaroid">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4>{{seed | safe}}</h4>
+      </div>
+      <div class="panel-body">
+        <h4><strong>{{candidate | safe}}</strong></h4>
+      </div>
+      {% if check %}
+      <div class="panel-heading">
+        {% if ease %}
+        <h4><strong>Ease of readability:  {{ease}} </strong></h4>
+        <h4><strong>{{ stri }}</strong></h4>
+        {% else %}
+        <form action="{% url 'lstm2.5' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" value="{{seed}}" name="input">
+          <input type="hidden" value="{{candidate}}" name="output">
+          <button class="btn btn-secondary btn-lg" type="submit">Analysis of generated text</button>
+        </form>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="panel-heading">
+        {% if score %}
+        <h4><strong>BLEU Score for this Generated text:- {{score }} </strong></h4>
+        <h4><strong>Accuracy:- {% widthratio score 1 100 %} %</strong></h4>
+        {% else %}
+        <form action="{% url 'lstm2.3' start %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" value="{{seed}}" name="input">
+          <input type="hidden" value="{{candidate}}" name="output">
+        <button class="btn btn-secondary btn-lg" type="submit">Generate BLEU
+            Score </button>
+            </form>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

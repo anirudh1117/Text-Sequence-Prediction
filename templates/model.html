@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<br><br>
+<section id="login" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white" style="text-align: center;">
+              <h4>
+                Choose Model</h4>
+            </div>
+            <br><br>
+            
+                <button class="btn btn-secondary btn-lg"><a class="nav-link" href="{% url 'lstm1' %}">LSTM(1st Approach)</a></button>
+            
+                <br><br>
+            
+                <button class="btn btn-secondary btn-lg"><a class="nav-link" href="{% url 'lstm2' %}">LSTM(2nd Approach)</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
